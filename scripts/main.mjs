@@ -858,7 +858,7 @@ function addSceneViewButtonEmbed (em, app) {
 	viewSceneButton.classList.add("enricher-action");
 	viewSceneButton.setAttribute('data-tooltip', '');
 	viewSceneButton.setAttribute('aria-label', 'Change Current View to Scene');
-	viewSceneButton.innerHTML = `<i class="fas fa-fw fa-magnifying-glass"></i>`;
+	viewSceneButton.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
 	viewSceneWrapper.append(viewSceneButton);
 				
 	viewSceneButton.addEventListener('click', () => {
@@ -886,7 +886,7 @@ function addTheatreButtonEmbed (em, app) {
 		addToTheatreButton.classList.add("enricher-action");
 		addToTheatreButton.setAttribute('data-tooltip', '');
 		addToTheatreButton.setAttribute('aria-label', 'Add Actor to Theater Bar');
-		addToTheatreButton.innerHTML = `<i class="${is_actor_staged ? "fas" : "fa-regular"} fa-fw fa-masks-theater"></i>`;
+		addToTheatreButton.innerHTML = `<i class="fa-regular ${is_actor_staged ? "fa-user-minus" : "fa-masks-theater"}"></i>`;
 		addToTheatreWrapper.append(addToTheatreButton);
 				
 		addToTheatreButton.addEventListener('click', () => {
