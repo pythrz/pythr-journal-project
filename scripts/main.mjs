@@ -266,18 +266,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 						return true;
 					}
 				},
-				{
-					action: "pjp_notable",
-					title: "Notable",
-					node: menu.schema.nodes.aside,
-					attrs: { class: "fvtt notable" },
-					cmd: () => {
-						menu._toggleBlock(menu.schema.nodes.aside, wrapIn, {
-							attrs: { _preserve: { class: "fvtt notable" } },
-						});
-						return true;
-					},
-				},
             ]
         });
     }
