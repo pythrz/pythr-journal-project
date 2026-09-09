@@ -3,7 +3,7 @@
 /* ------------------------------------------- */
 /* Inline Rich Text Formatting Utility Classes */
 /* ------------------------------------------- */
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) {
+:is(.pythr) {
   /* Positioning */
   /* Sizing */
   /* Layout */
@@ -13,117 +13,117 @@
   /* Narrative Callout */
   /* Quest/Advice Callout */
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-left {
+:is(.pythr) .float-left {
   float: left;
   clear: left;
   margin-right: 0.5em;
-  max-width: var(--dnd5e-block-float-max);
+  max-width: var(--block-float-max);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-right {
+:is(.pythr) .float-right {
   float: right;
   clear: right;
   margin-left: 0.5em;
-  max-width: var(--dnd5e-block-float-max);
+  max-width: var(--block-float-max);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-clear {
+:is(.pythr) .float-clear {
   clear: both;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .margin-center {
+:is(.pythr) .margin-center {
   margin: auto;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-four {
-  --local-width: calc(4 * var(--dnd5e-block-width-base));
+:is(.pythr) .size-four {
+  --local-width: calc(4 * var(--block-width-base));
   width: var(--local-width);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-three {
-  --local-width: calc(3 * var(--dnd5e-block-width-base));
+:is(.pythr) .size-three {
+  --local-width: calc(3 * var(--block-width-base));
   width: var(--local-width);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-two {
-  --local-width: calc(2 * var(--dnd5e-block-width-base));
+:is(.pythr) .size-two {
+  --local-width: calc(2 * var(--block-width-base));
   width: var(--local-width);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-one {
-  --local-width: var(--dnd5e-block-width-base);
+:is(.pythr) .size-one {
+  --local-width: var(--block-width-base);
   width: var(--local-width);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-between,
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-around {
+:is(.pythr) .flex-between,
+:is(.pythr) .flex-around {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   clear: both;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-around {
+:is(.pythr) .flex-around {
   justify-content: space-around;
   gap: 10px;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-wrap {
+:is(.pythr) .flex-wrap {
   flex-wrap: wrap;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .align-start {
+:is(.pythr) .align-start {
   align-items: start;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .hide-secrets :is(document-embed, .content-embed) .secret,
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .hide-secrets:is(document-embed, .content-embed) .secret {
+:is(.pythr) .hide-secrets :is(document-embed, .content-embed) .secret,
+:is(.pythr) .hide-secrets:is(document-embed, .content-embed) .secret {
   display: none;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(document-embed, .content-embed) .hide-in-embed {
+:is(.pythr) :is(document-embed, .content-embed) .hide-in-embed {
   display: none;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.notable, .quest, .advice, .narrative) {
+:is(.pythr) :is(.notable, .quest, .advice, .narrative) {
   display: flow-root;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable {
-  background: var(--dnd5e-block-background);
+:is(.pythr) .notable {
+  background: var(--block-background);
   margin: 1.4em;
   padding: 1.4em;
   border-width: 3px 1px;
   border-style: solid;
   border-color: #212121;
-  filter: drop-shadow(0 5px 8px var(--dnd5e-shadow-15));
+  filter: drop-shadow(0 5px 8px var(--shadow-15));
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::before,
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::after {
+:is(.pythr) .notable::before,
+:is(.pythr) .notable::after {
   content: "";
   height: 11px;
   position: absolute;
   left: 0;
   right: 0;
   z-index: -1;
-  filter: var(--dnd5e-notable-filter, none);
+  filter: var(--notable-filter, none);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::before {
+:is(.pythr) .notable::before {
   top: -13px;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::after {
+:is(.pythr) .notable::after {
   bottom: -13px;
   transform: scaleY(-1);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable > :first-child {
+:is(.pythr) .notable > :first-child {
   margin-block-start: 0;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable > :last-child {
+:is(.pythr) .notable > :last-child {
   margin-block-end: 0;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative {
+:is(.pythr) .narrative {
   --dot-size: 0.6em;
   --offset: calc(var(--dot-size) / -2);
   position: relative;
   margin: 1.5em 1em;
   padding: 1em 1.5em;
-  /*background: var(--dnd5e-block-background);*/
+  /*background: var(--block-background);*/
   background: #231a1b;
   border-left: 1px solid rgba(var(--border-color), 1);
   border-right: 1px solid rgba(var(--border-color), 1);
   text-align: justify;
   /* Adding dots to corner of block */
 }
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::after,
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::before,
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::after,
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::before {
+:is(.pythr)  .narrative::after,
+:is(.pythr)  .narrative::before,
+:is(.pythr)  .narrative > :last-child::after,
+:is(.pythr)  .narrative > :last-child::before {
   content: "";
   display: block;
   position: absolute;
@@ -132,43 +132,43 @@
   width: var(--dot-size);
   height: var(--dot-size);
 }
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::before {
+:is(.pythr)  .narrative::before {
   top: var(--offset);
   left: var(--offset);
 }
-:is(.pythr) :is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::after {
+:is(.pythr)  .narrative::after {
   top: var(--offset);
   right: var(--offset);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::before {
+:is(.pythr) .narrative > :last-child::before {
   bottom: var(--offset);
   left: var(--offset);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::after {
+:is(.pythr) .narrative > :last-child::after {
   bottom: var(--offset);
   right: var(--offset);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) {
+:is(.pythr) :is(.quest, .advice) {
   --img-size: 64px;
   position: relative;
-  /*background: var(--dnd5e-block-background);*/
+  /*background: var(--block-background);*/
   background: #231a1b;
   border: 2px solid var(--box-border-color);
-  box-shadow: 1px 3px 5px var(--dnd5e-shadow-15);
+  box-shadow: 1px 3px 5px var(--shadow-15);
   margin: 1rem 1rem 1rem calc(var(--img-size) / 2);
   padding: 0.75rem 0.75rem 0.75rem calc(var(--img-size) / 2 + 0.75rem);
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) .narrative {
+:is(.pythr) :is(.quest, .advice) .narrative {
 	background: #302426;
 }
-:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) article > :last-child {
+ :is(.quest, .advice) article > :last-child {
   margin-block-end: 0;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) article :is(h3, h4) {
+:is(.pythr) :is(.quest, .advice) article :is(h3, h4) {
 	display: flex;
 	align-items: center;
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) > figure {
+:is(.pythr) :is(.quest, .advice) > figure {
   position: absolute;
   width: var(--img-size);
   height: var(--img-size);
@@ -176,7 +176,7 @@
   left: calc(var(--img-size) / -2);
   /*top: calc(50% - var(--img-size) / 2);*/
 }
-:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) > figure img {
+:is(.pythr) :is(.quest, .advice) > figure img {
   border-radius: 100%;
   width: 100%;
   height: 100%;
@@ -245,10 +245,10 @@
 	  --font-h6: var(--font-serif);
 	  
 	  /* Borrowed from D&D5e system */
-	  --dnd5e-block-float-max: 50%;
-	  --dnd5e-block-width-base: 100px;
-	  --dnd5e-block-background: #333742;
-	  --dnd5e-shadow-15: rgba(0, 0, 0, 0.15);
+	  --block-float-max: 50%;
+	  --block-width-base: 100px;
+	  --block-background: #333742;
+	  --shadow-15: rgba(0, 0, 0, 0.15);
 	}
 
 	.pythr.journal-entry {
@@ -464,7 +464,7 @@
 		margin-right: 4px;
 	}
 	
-	:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.notable, .quest, .advice, .narrative) a.content-link i.fa-solid {
+	:is(.pythr) :is(.notable, .quest, .advice, .narrative) a.content-link i.fa-solid {
 		margin-left: 3px;
 	}
 	
@@ -483,7 +483,7 @@
 	}
 	
 	.pythr .journal-page-content :is(td, th, .encounter li, .advice, .notable, .quest) a.content-link,
-	:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(h1, h2, h3, h4, h5, h6) a.content-link {
+	:is(.pythr) :is(h1, h2, h3, h4, h5, h6) a.content-link {
 		background: none;
 		border: none;
 		padding: 0;
@@ -641,7 +641,7 @@
 	.pythr.journal-entry .journal-page-content .quest.encounter figure.icon {
 		top: min(calc(50% - var(--img-size) / 2), 2.15rem);
 		border-radius: 100%;
-		background: var(--dnd5e-background-alt-1);
+		background: var(--background-alt-1);
 		border: 3px solid var(--box-border-color);
 	}
 	
@@ -654,7 +654,7 @@
 	.pythr.journal-entry .journal-page-content .quest:not(.encounter) figure.icon,
 	.pythr.journal-entry .journal-page-content .advice figure.icon {
 		top: min(calc(50% - var(--img-size) / 2), 1.15rem);
-		background: var(--dnd5e-background-alt-1);
+		background: var(--background-alt-1);
 		border: 3px solid var(--box-border-color);
 		border-radius: 100%;
 	}

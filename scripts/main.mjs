@@ -1,5 +1,5 @@
 const {JournalEntryPageProseMirrorSheet} = foundry.applications.sheets.journal;
-const cssclasses = ["pythr", "dnd5e2", "dnd5e2-journal", "titlebar", "dialog-lg"];
+const cssclasses = ["pythr", "titlebar", "dialog-lg"];
 const numeral = {1: 'i', 2: "ii", 3: "iii", 4: "iv", 5: "v"}
 const { DialogV2 } = foundry.applications.api;
 
@@ -681,7 +681,7 @@ function pageFromUuid(uuid) {
 
 class PythrJournal extends foundry.applications.sheets.journal.JournalEntrySheet {
 	static DEFAULT_OPTIONS = {
-		classes: ["pythr", "themed", "theme-dark", "dnd5e2", "dnd5e2-journal", "titlebar"],
+		classes: ["pythr", "themed", "theme-dark", "titlebar"],
 		position: {
 			width: 1080,
 			height: 820
