@@ -21,6 +21,17 @@ To change your journal into the newly added journal sheet, follow these instruct
 6. (Optional) If you wish to change all of your journals that lack a manual sheet override, locate the "Defaults" section just underneath; under "Default Sheet," use the dropdown to select either **Pythr Journal Entry** or **Pythr Location Entry**.
 <img width="333" height="247" alt="Change Journal Sheet" src="https://github.com/user-attachments/assets/8c32e14b-e13d-4e2a-b554-1abc7d166b27" />
 
+### Journal Page Indexing
+Each journal sheet treats the indexing of its pages differently. This is purely a visual change, so you can safely ignore this if the specifics don't affect you.
+- For the standard **Pythr Journal Entry**:
+  - Indexing persists through categories, without resetting its count once it reaches a new category. Pages labeled 1 through 5 in one category will be followed by page 6 in a new category, from top to bottom.
+  - Any pages assigned to a category with the word "Overview" will use capital letters in place of numbers for their displayed index.
+  - Any pages assigned to a category with the word "Appendix" will use the "ɀ" symbol as their index, in place of any incremental option.
+- For the **Pythr Location Entry**:
+  - Overview and Appendix categories function the same as above.
+  - Any other category will have a new field within the category editor, which allows for a prefix to added for the purpose of indexing.
+  - Each page will increment the index by 1, while adding its category's prefix to its index. A category with a different prefix will reset the count to 1.
+  - To keep the number increasing between categories, assign each category with the same prefix.
 ## Per-Page Event Status Tracking
 Often times, journal entries are written as standalone events and/or have some type of progress associated with them. While using either journal sheet, each page can be given an **event status** that allows you to easily track what your players haven't done, are currently in the process of doing, or have already completed. It's been set up in a way to be as unobtrusive as possible while still providing easy access for real-time editing of these statuses without requiring you to open up the journal page editor in the middle of a session.
 
