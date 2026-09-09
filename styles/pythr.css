@@ -1,0 +1,878 @@
+/* Theft */
+
+/* ------------------------------------------- */
+/* Inline Rich Text Formatting Utility Classes */
+/* ------------------------------------------- */
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) {
+  /* Positioning */
+  /* Sizing */
+  /* Layout */
+  /* Hidden Content */
+  /* Common Typography for Callouts */
+  /* Notable Callout */
+  /* Narrative Callout */
+  /* Quest/Advice Callout */
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-left {
+  float: left;
+  clear: left;
+  margin-right: 0.5em;
+  max-width: var(--dnd5e-block-float-max);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-right {
+  float: right;
+  clear: right;
+  margin-left: 0.5em;
+  max-width: var(--dnd5e-block-float-max);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .float-clear {
+  clear: both;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .margin-center {
+  margin: auto;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-four {
+  --local-width: calc(4 * var(--dnd5e-block-width-base));
+  width: var(--local-width);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-three {
+  --local-width: calc(3 * var(--dnd5e-block-width-base));
+  width: var(--local-width);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-two {
+  --local-width: calc(2 * var(--dnd5e-block-width-base));
+  width: var(--local-width);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .size-one {
+  --local-width: var(--dnd5e-block-width-base);
+  width: var(--local-width);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-between,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-around {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  clear: both;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-around {
+  justify-content: space-around;
+  gap: 10px;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .flex-wrap {
+  flex-wrap: wrap;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .align-start {
+  align-items: start;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .hide-secrets :is(document-embed, .content-embed) .secret,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .hide-secrets:is(document-embed, .content-embed) .secret {
+  display: none;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(document-embed, .content-embed) .hide-in-embed {
+  display: none;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.notable, .quest, .advice, .narrative) {
+  display: flow-root;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable {
+  background: var(--dnd5e-block-background);
+  margin: 1.4em;
+  padding: 1.4em;
+  border-width: 3px 1px;
+  border-style: solid;
+  border-color: #212121;
+  filter: drop-shadow(0 5px 8px var(--dnd5e-shadow-15));
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::before,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::after {
+  content: "";
+  background: var(--dnd5e-notable-decor);
+  height: 11px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  filter: var(--dnd5e-notable-filter, none);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::before {
+  top: -13px;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable::after {
+  bottom: -13px;
+  transform: scaleY(-1);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable > :first-child {
+  margin-block-start: 0;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .notable > :last-child {
+  margin-block-end: 0;
+}
+:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative {
+  --dot-size: 0.6em;
+  --offset: calc(var(--dot-size) / -2);
+  position: relative;
+  margin: 1.5em 1em;
+  padding: 1em 1.5em;
+  /*background: var(--dnd5e-block-background);*/
+  background: #231a1b;
+  border-left: 1px solid rgba(var(--border-color), 1);
+  border-right: 1px solid rgba(var(--border-color), 1);
+  text-align: justify;
+  /* Adding dots to corner of block */
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::after,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::before,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::after,
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: rgba(var(--border-color), 1);
+  border-radius: 100%;
+  width: var(--dot-size);
+  height: var(--dot-size);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::before {
+  top: var(--offset);
+  left: var(--offset);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative::after {
+  top: var(--offset);
+  right: var(--offset);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::before {
+  bottom: var(--offset);
+  left: var(--offset);
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) .narrative > :last-child::after {
+  bottom: var(--offset);
+  right: var(--offset);
+}
+:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) {
+  --img-size: 64px;
+  position: relative;
+  /*background: var(--dnd5e-block-background);*/
+  background: #231a1b;
+  border: 2px solid var(--box-border-color);
+  box-shadow: 1px 3px 5px var(--dnd5e-shadow-15);
+  margin: 1rem 1rem 1rem calc(var(--img-size) / 2);
+  padding: 0.75rem 0.75rem 0.75rem calc(var(--img-size) / 2 + 0.75rem);
+}
+:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) .narrative {
+	background: #302426;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) article > :last-child {
+  margin-block-end: 0;
+}
+:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) article :is(h3, h4) {
+	display: flex;
+	align-items: center;
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) > figure {
+  position: absolute;
+  width: var(--img-size);
+  height: var(--img-size);
+  margin: 0;
+  left: calc(var(--img-size) / -2);
+  /*top: calc(50% - var(--img-size) / 2);*/
+}
+:is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.quest, .advice) > figure img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  border: none;
+  box-shadow: none;
+}
+
+:is(.pythr) a.enricher-action::before {
+	content: "\f105";
+    font-family: var(--font-awesome);
+    font-weight: bold;
+    margin: 0 4px 0 2px;
+    font-size: var(--font-size-10);
+    color: var(--color-text-tertiary);
+}
+
+@layer modules.pythr-journal-project {
+	@font-face {
+		font-family: "Baskerville";
+		src: url(fonts/Baskervville/Baskervville-Regular.ttf) format('truetype');
+	}
+
+	@font-face {
+		font-family: "Fonarto";
+		src: url(fonts/Fonarto/Fonarto.ttf) format('truetype');
+	}
+	
+	/* Journal Entry Styling */
+
+	.pythr {
+	  --header-font: "Macondo", serif;
+	  --category-font: "Baskerville", serif;
+		
+	  --background-color-red: 17, 13, 14;
+	  --background-color-purple: 16, 9, 23;
+	  --current-background-color: var(--background-color-red);
+	  
+	  
+	  --base-color: 254, 255, 209;
+	  --font-color: rgba(var(--base-color), 1);
+	  --border-color: 251, 252, 172;
+	  --box-border-color: rgba(var(--border-color), 0.8);
+	  --color-highlight-rgb: 247, 176, 143;
+	  --color-highlight: rgba(var(--color-highlight-rgb), 1);
+	  
+	  --color-scrollbar: var(--font-color);
+	  --color-scrollbar-track: transparent;
+	  --color-scrollbar-border: transparent;
+		
+	  --color-ns: 219, 171, 171;
+	  --color-st: 219, 211, 171;
+	  --color-cm: 171, 219, 178;
+	  --color-fa: 145, 145, 145;
+
+	  --color-text-primary: var(--font-color);
+	  --page-header: "Fonarto XT", serif;
+	  --font-header: "Fonarto", serif;
+	  --font-body: "Baskerville", serif;
+	  --font-serif: "Baskerville", serif;
+	  --font-sans: "Signika", sans-serif;
+	  --font-h1: var(--font-header);
+	  --font-h2: var(--font-header);
+	  --font-h3: var(--font-header);
+	  --font-h4: var(--font-sans);
+	  --font-h5: var(--font-serif);
+	  --font-h6: var(--font-serif);
+	  
+	  /* theft */
+	  --dnd5e-block-float-max: 50%;
+	  --dnd5e-block-width-base: 100px;
+	  --dnd5e-block-background: #333742;
+	  --dnd5e-notable-decor: no-repeat url("ui/notable-right-corner.svg") 0%/contain,
+		no-repeat url("ui/notable-left-corner.svg") 100%/contain;
+	  --dnd5e-shadow-15: rgba(0, 0, 0, 0.15);
+	}
+
+	.pythr.journal-entry {
+	  border: 0.075rem solid rgba(var(--border-color), 1);
+	}
+	
+	.pythr.journal-entry.expanded {
+		min-width: 1080px;
+    }
+	
+	.pythr.journal-entry:not(.expanded) {
+		min-width: 820px;
+	}
+	
+	.pythr.journal-entry.minimized {
+		min-width: 400px;
+	}
+
+	.pythr.journal-entry .journal-header {
+		display: none;
+	}
+
+	.pythr.journal-entry,
+	.pythr.journal-entry .journal-entry-content {
+	  background: rgba(var(--current-background-color), 0.95)!important;
+	}
+	
+	.pythr.journal-entry .journal-entry-page h1,
+	.pythr.journal-entry .journal-entry-page h2,
+	.pythr.journal-entry .journal-entry-page h3 {
+		font-family: var(--font-header);
+		letter-spacing: 0.2rem;
+		text-transform: uppercase;
+		border: none;
+		font-weight: normal;
+		text-shadow: 2px 1px 0px #dcddb542;
+		color: white;
+	}
+	
+	.pythr.journal-entry .journal-entry-page h3 {
+		margin: 1rem 0 0.5rem;
+		padding-bottom: 0;
+	}
+	
+	.pythr.journal-entry .journal-entry-page h1,
+	.pythr.journal-entry .journal-entry-page h2 {
+		text-align: center;
+		margin: 1rem 0 0.75rem;
+	}
+	
+	.pythr.journal-entry .journal-entry-page h4,
+	.pythr.journal-entry .journal-entry-page h5,
+	.pythr.journal-entry .journal-entry-page h6 {
+		font-family: var(--font-sans);
+	}
+	 
+	.pythr.journal-entry .window-content {
+		padding: 0;
+	}
+	 
+	.pythr blockquote {
+		font-family: var(--font-serif);
+		border-left: 2px dashed var(--color-highlight);
+		padding: 0 0 0 0.5rem;
+		margin: 0.5rem 0;
+	}
+	 
+	.pythr.journal-entry .journal-entry-page .journal-page-content {
+		font-family: var(--font-body);
+		color: var(--font-color);
+		font-size: 0.8rem;
+		letter-spacing: 0.03em;
+		padding: 0.25rem 0.5rem;
+	}
+	 
+	.pythr.journal-entry .journal-entry-page .journal-page-content p {
+		text-align: justify;
+		line-height: normal;
+	}
+	  
+	.pythr.journal-entry .journal-entry-page .journal-page-content li > p {
+		text-align: left;
+	}
+
+	.pythr.journal-entry .journal-page-header {
+	  text-align: center;
+	  background: none;
+	  border-bottom: 2px solid rgba(var(--border-color), 0.25);
+	  border-radius: 5px;
+	}
+	
+	/*------------------
+	Event Flag & Buttons
+	-------------------*/
+	
+	.toc-event-status {
+		width: 0.2rem;
+		height: 2rem;
+	}
+	
+	/*.event-progress-page {
+		width: 50%;
+		float: right;
+		align-items: center;
+	}*/
+
+	.event-progress-page/*:first-of-type*/ {
+		width: 100%;
+		align-items: center;
+		margin-top: 0;
+		position: sticky;
+		top: 0;
+		background: rgba(var(--current-background-color), 0.9);
+		padding: 0.5rem 0;
+		z-index: 1;
+	}
+	
+	.event-progress-page label {
+		margin-right: 0.5rem;
+	}
+	
+	.event-progress-page .form-fields select {
+		font-family: var(--font-sans);
+		font-size: 10pt;
+	}
+	
+	.event-create-button {
+		padding: 0.5rem;
+		margin: 0 auto;
+		display: flex;
+		height: 1.5rem;
+		width: 100%;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+	}
+	
+	.event-create-button::before {
+		font-size: 10pt!important;
+	}
+	
+	.event-create-button p {
+		font-family: var(--font-sans);
+		text-transform: capitalize;
+		font-weight: normal;
+		font-size: 10pt!important; 
+		margin: 0;
+	}
+	
+	div.pythr-checkbox-insert p {
+		display: inline-block;
+	}
+	
+	div..pythr-checkbox-insert button {
+		display: inline-block;
+	}
+	
+	.flags-button-container {
+		margin: 0 auto 0;
+		display: flex;
+		gap: 0.2rem;
+		position: sticky;
+		bottom: -1px;
+		padding: 0.5rem 0;
+		width: 100%;
+		z-index: 1;
+		background: rgba(var(--current-background-color), 0.9)
+	}
+	
+	:is(.pythr) .fa-solid {
+		font-family: "Font Awesome 7 Pro"
+	}
+	
+	/*------------------
+		 TOC Collapse
+	------------------*/
+	
+	nav.toc ol li.category {
+		cursor: pointer
+	}
+	
+	nav.toc ol div.collapseTOC {
+		grid-template-rows: 1fr;
+		transition: grid-template-rows 0.5s ease;
+		display: grid;
+		overflow: hidden;
+	}
+	
+	nav.toc ol div.collapseTOC:not(.active) {
+		grid-template-rows: 0fr;
+		overflow: hidden;
+	}
+	
+	nav.toc ol div.collapseTOC div {
+		min-height: 0;
+	}
+	
+	/*------------------
+	     Event Embed
+	-------------------*/
+	
+	.pythr .journal-page-content a.content-link {
+		padding: 2px 6px;
+		border-radius: 4px;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
+		text-decoration: none;
+		font-family: var(--font-sans);
+		text-transform: uppercase;
+		text-shadow: 1px 1px 1px black;
+		background: #35342c;
+		font-style: normal;
+		border: 1px solid rgba(var(--base-color), 0.3);
+		display: inline-flex;
+		align-items: baseline;
+		line-height: inherit;
+	}
+	
+	.pythr .journal-page-content a.content-link i.fa-solid {
+		margin-right: 4px;
+	}
+	
+	:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(.notable, .quest, .advice, .narrative) a.content-link i.fa-solid {
+		margin-left: 3px;
+	}
+	
+	:is(.pythr) :is(h1, h2, h3, h4, h5, h6) a.content-link {
+		line-height: inherit;
+	}
+	
+	:is(.pythr) :is(h1, h2, h3, h4) a.enricher-action {
+		display: none;
+	}
+	
+	.pythr .journal-page-content :is(a.content-link[data-type="Item"], a.content-link[data-type="PlaylistSound"]) {
+		text-transform: lowercase;
+		padding: 0 4px;
+		border-color: rgba(var(--base-color), 0.2);
+	}
+	
+	.pythr .journal-page-content :is(td, th, .encounter li, .advice, .notable, .quest) a.content-link,
+	:is(.pythr):is(.dnd5e, .dnd5e2, .dnd5e2-journal) :is(h1, h2, h3, h4, h5, h6) a.content-link {
+		background: none;
+		border: none;
+		padding: 0;
+	}
+	
+	.pythr .journal-page-content a.content-link:hover {
+		text-shadow: 1px 1px 1px rgba(var(--color-highlight-rgb), 0.5);
+	}
+	
+	.pjp-event-embed-notstarted::after, .pjp-event-embed-started::after, .pjp-event-embed-complete::after, .pjp-event-embed-failed::after {
+		font-family: "Font Awesome 7 Pro", sans-serif;
+		font-weight: 900;
+		margin-left: 5px;
+		padding: 0.06rem 0.6rem;
+		border-radius: 5px;
+		vertical-align: -4%;
+		text-shadow: 1px 1px 2px black;
+		letter-spacing: 0;
+		align-self: center;
+	}
+	
+	.journal-page-content a.pjp-event-embed-notstarted:hover {
+		text-shadow: 1px 1px 2px rgba(var(--color-ns), 0.66);
+	}
+	
+	.pjp-event-embed-notstarted::after {
+		color: #ff4f4f;
+		background: rgba(var(--color-ns), 0.2);
+		content: '\f00d';
+	}
+	
+	.pjp-event-embed-notstarted:hover::after {
+		background: rgba(var(--color-ns), 0.4);
+	}
+	
+	.journal-page-content a.content-link:is(.pjp-event-embed-started):hover {
+		text-shadow: 1px 1px 2px rgba(var(--color-st), 0.66);
+	}
+	
+	.pjp-event-embed-started::after {
+		color: #ceb833;
+		background: rgba(var(--color-st), 0.2);
+		content: '\f141';
+	}
+	
+	.pjp-event-embed-started:hover::after {
+		background: rgba(var(--color-st), 0.4);
+	}
+	
+	.journal-page-content a.content-link:is(.pjp-event-embed-complete):hover {
+		text-shadow: 1px 1px 2px rgba(var(--color-cm), 0.66);
+	}
+	
+	.pjp-event-embed-complete::after {
+		color: #33ce40;
+		background: rgba(var(--color-cm), 0.2);
+		content: '\f00c';
+	}
+	
+	.pjp-event-embed-complete:hover::after {
+		background: rgba(var(--color-cm), 0.4);
+	}
+	
+	.journal-page-content a.content-link:is(.pjp-event-embed-failed):hover {
+		text-shadow: 1px 1px 2px rgba(var(--color-fa), 0.66);
+	}
+	
+	.pjp-event-embed-failed::after {
+		color: #c5c5c5;
+		content: '\f068';
+		font-weight: 400;
+		background: rgba(var(--color-fa), 0.2);
+	}
+	
+	.pjp-event-embed-failed:hover::after {
+		background: rgba(var(--color-fa), 0.4);
+	}
+	
+	a.content-link.pjp-event-embed nav#context-menu .context-items {
+		display: flex;
+		justify-content: space-evenly;
+	}
+	
+	a.content-link.pjp-event-embed nav#context-menu .context-items li.context-item {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	a.content-link.pjp-event-embed nav#context-menu .context-items li.context-item:last-child {
+		width: 33%;
+	}
+	
+	a.content-link.pjp-event-embed nav#context-menu .context-items li.context-item i.fa-solid {
+		margin: 0;
+	}
+	
+	.pythr.journal-entry .journal-entry-page :not(.notable, .quest, .advice, .narrative) .reference-link a + a {
+		margin-inline-start: 0;
+	}
+
+	.pythr.journal-entry .journal-page-header h1,
+	.pythr.journal-entry .journal-page-header h2,
+	.pythr.journal-entry .journal-page-header h3 {
+	  text-transform: uppercase;
+	  text-shadow: 2px 1px 0px #dcddb58f;
+	  letter-spacing: 0.5rem;
+	  margin-bottom: 0.5rem;
+	  margin: 16px 0 8px;
+	  font-size: 40px;
+	  color: white;
+	}
+	
+	.pythr.journal-entry .toc li.page ol.headings {
+		display: none;
+	}
+
+	.pythr.journal-entry .toc li.page {
+	  border: none;
+	}
+
+	.pythr.journal-entry .toc li.page .page-title, .pythr.journal-entry .toc li.page .headings a {
+	  font-family: var(--font-serif);
+	  font-size: 0.8rem;
+	}
+
+	.pythr.journal-entry .toc li.page .page-heading .page-index {
+	  color: rgba(var(--base-color), 0.4);
+	  font-family: var(--font-sans);
+	  font-size: 0.8rem;
+	}
+
+	.pythr.journal-entry .toc li.active {
+	  color: var(--color-highlight);
+	  border: none;
+	}
+
+	.pythr.journal-entry .toc li.category {
+	   margin: 0.5rem 0 0.25rem 0;
+	   border-bottom: 0.075rem solid rgba(var(--border-color), 1);
+	   border-top: 0.125rem solid rgba(var(--border-color), 1);
+	   border-radius: 0 6px 6px 0;
+	   background-color: rgba(130, 98, 106, 0.15)
+	}
+	 
+	.pythr.journal-sheet.application:not(.expanded) .toc li.category {
+		 margin: 0;
+	}
+	 
+	.pythr.journal-entry .journal-page-content .narrative p {
+		 color: #efe6d8;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest.encounter figure.icon {
+		top: min(calc(50% - var(--img-size) / 2), 2.15rem);
+		border-radius: 100%;
+		background: var(--dnd5e-background-alt-1);
+		border: 3px solid var(--box-border-color);
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest:not(:has(figure.icon)),
+	.pythr.journal-entry .journal-page-content .advice:not(:has(figure.icon)) {
+		padding: 0 0.75rem 0.25rem 0.75rem;
+		border-radius: 10px;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest:not(.encounter) figure.icon,
+	.pythr.journal-entry .journal-page-content .advice figure.icon {
+		top: min(calc(50% - var(--img-size) / 2), 1.15rem);
+		background: var(--dnd5e-background-alt-1);
+		border: 3px solid var(--box-border-color);
+		border-radius: 100%;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest,
+	.pythr.journal-entry .journal-page-content .advice {
+		border-radius: 3px;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest:not(.encounter) figure.icon img,
+	.pythr.journal-entry .journal-page-content .advice figure.icon img {
+		margin-bottom: 2em;
+		border: none;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest:not(.encounter) h4,
+	.pythr.journal-entry .journal-page-content .advice h4,
+	.pythr.journal-entry .journal-page-content .advice h5,
+	.pythr.journal-entry .journal-page-content .notable h4,
+	.pythr.journal-entry .journal-page-content .notable h5 {
+		margin: 4px 0 8px;
+		font-weight: bold;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		padding-bottom: 8px;
+		border-bottom: 2px solid rgba(var(--border-color), 0.5);
+		margin-block-start: 0.8em;
+		font-size: 1.3em;
+		color: white;
+	}
+	
+	.pythr.journal-entry .journal-page-content .notable h5 {
+		font-size: 1.1em;
+	}
+	
+	.pythr.journal-entry .journal-page-content .notable h4,
+	.pythr.journal-entry .journal-page-content .notable h5 {
+		border-color: rgba(33, 33, 33, 0.75);
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter {
+		width: 15rem;
+		float: right;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		margin-top: 0.75rem;
+		margin-left: 1rem;
+		margin-bottom: 0.5rem;
+		border: 2px solid rgba(var(--border-color), 0.5);
+		background-color: #4a2525;
+		border-radius: 5px;
+		text-align: center;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter h5 {
+		font-weight: bold;
+		font-size: 1.1em;
+		font-family: var(--font-sans);
+		margin: 1.1em 0 0;
+		color: white;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter p {
+		text-align: center;
+		color: white;
+		text-transform: uppercase;
+		font-family: var(--font-sans);
+		font-weight: bold;
+		margin: 12px 0 0 0;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter li p {
+		text-align: left;
+		text-wrap: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-weight: normal;
+		text-transform: lowercase;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter li p a {
+		font-weight: bold;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest aside.encounter ol {
+		text-align: left;
+		padding-left: 0.5rem;
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+
+	.pythr.journal-entry .journal-page-content .quest aside.encounter ol li::marker {
+		color: white;
+		content: none;
+	}
+
+	.pythr.journal-entry .journal-page-content .quest div.encounter-header {
+		border-bottom: 2px solid #9f9275;
+		width: auto;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest div.encounter-header h3 {
+		display: inline-block;
+		font-family: var(--font-sans);
+		font-weight: bold;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest div.encounter-header h4 {
+		float: right;
+		display: inline-block;
+		margin-top: 2rem;
+		font-size: 1.15rem;
+		font-weight: normal;
+		letter-spacing: 0.2em;
+		text-transform: lowercase;
+	}
+
+	.pythr.journal-entry .toc li.category strong {
+	   line-height: calc(var(--line-height)* 1.25);
+	   font-family: var(--category-font);
+	   font-weight: normal;
+	   font-size: 0.8rem;
+	   text-transform: none;
+	   text-align: left;
+	   margin-left: 1rem;
+	}
+	
+	/*------------------
+	   Status Buttons
+	-------------------*/
+	
+	.pjp-section-button-container {
+		width: 100%;
+		display: flex;
+		height: 1.5rem;
+		align-items: center;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+		
+		--checkbox-scale: 0.8;
+	}
+	
+	.pjp-section-button-container span {
+		margin: 0;
+	}
+	
+	.pjp-section-button-container span p {
+		font-family: var(--font-sans);
+		margin: 0;
+		text-transform: uppercase;
+	}
+
+	.pjp-section-button-container input[type=checkbox] {
+		-ms-transform: scale(var(--checkbox-scale)); /* IE */
+		-moz-transform: scale(var(--checkbox-scale)); /* FF */
+		-webkit-transform: scale(var(--checkbox-scale)); /* Safari and Chrome */
+		-o-transform: scale(var(--checkbox-scale)); /* Opera */
+		margin: 0 0.5rem;
+	}
+	
+	/* Ownership-viewer */
+	.pythr.journal-entry:not(.expanded) div.ownership-viewer {
+		display: none!important;
+	}
+	
+	.pythr.journal-entry :is(span[data-pf2-action][data-secret], a.inline-check[data-pf2-traits*=secret]) {
+		background: rgba(11, 10, 19, 0.9);
+	}
+}
+
+/* I don't know why, but the context menu breaks because pointer-events. */
+
+.pythr #context-menu {
+	border: 1px solid rgba(var(--border-color, 0.66));
+}
+
+.pythr #context-menu .context-items .context-item {
+	pointer-events: auto;
+}
+
+.pythr #context-menu .context-items .context-item span {
+	font-family: var(--font-sans);
+	color: white;
+}
+
+.pythr menu.controls-dropdown {
+	z-index: 2;
+}
+
+/*.header-button:is(.add-to-theatre-navbar, .cinematic-config-btn, .pf2e-effects-halo, .open-cm, .item-piles-config-button) {
+	display: none;
+}*/
+
+div:is(.sheet) header:is(.window-header) a:is(.header-button, .control) {
+	max-width: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	transition: max-width 1s
+}
+
+div:is(.sheet) header:is(.window-header) a:is(.header-button, .control):hover {
+	max-width: 200px;
+}
+
+div:is(.sheet) header:is(.window-header) a:is(.header-button, .control):last-child {
+	max-width: 200px
+}
+
+#pause {
+	top: unset;
+	bottom: 10%;
+}

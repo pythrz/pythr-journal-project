@@ -1,0 +1,28 @@
+{
+  "id": "pythr-journal-project",
+  "title": "pythr journal project",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.367"
+  },
+  "esmodules": [
+    "scripts/main.mjs"
+  ],
+  "styles": [
+    {
+      "src": "styles/pythr.css"
+    }
+  ],
+  "flags": {
+    "canUpload": true
+  },
+  "description": "<p>A simple journal replacement that adds features such as per-page event results, additional document embed functionality, and easy insertion of text sections with progress toggles for encounters, developments, and milestones.</p>",
+  "authors": [
+    {
+      "name": "pythr",
+      "discord": "pythr",
+      "flags": {}
+    }
+  ]
+}
