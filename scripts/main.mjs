@@ -608,7 +608,7 @@ Hooks.on("renderJournalEntryCategoryConfig", (app, html, context) => {
 		
 		for(const category of options.children) {
 			const name = category.querySelector(`[type="text"]`);
-			if(name.value.toLowerCase().includes('overview')) continue;
+			if(["overview", "appendix", "context", "additional"].some((e) => name.value.toLowerCase().includes(e))) continue;
 			
 			const locationField = newField.cloneNode(true);
 			locationField.placeholder = name.value.charAt(0);
@@ -697,7 +697,7 @@ class PythrJournal extends foundry.applications.sheets.journal.JournalEntrySheet
 			if ( page.isCategory ) {
 				if ( page.name.toLowerCase().includes("overview") ) {
 					overviewId.push(page.id);
-			} else if ( page.name.toLowerCase().includes("appendix") || page.name.toLowerCase().includes("context") || page.name.toLowerCase().includes("additional") ) {
+			} else if ( ["appendix", "context", "additional"].some((e) => page.name.toLowerCase().includes(e)) ) {
 					appendixId.push(page.id);
 				} continue;
 			}
@@ -718,7 +718,7 @@ class PythrLocationJournal extends PythrJournal {
 			if ( page.isCategory ) {
 				if ( page.name.toLowerCase().includes("overview") ) {
 					overviewId.push(page.id);
-			} else if ( page.name.toLowerCase().includes("appendix") || page.name.toLowerCase().includes("context") || page.name.toLowerCase().includes("additional") ) {
+			} else if ( ["appendix", "context", "additional"].some((e) => page.name.toLowerCase().includes(e)) ) {
 					appendixId.push(page.id);
 				} continue;
 			}
@@ -764,6 +764,7 @@ function assignPages(toc, overviewId, appendixId, loc = false, loc_key = null) {
 					it = 1;
 				} page.number = String.fromCharCode(overviewChar + 65) + String(it++);
 			} else page.number = String.fromCharCode(overviewChar++ + 65);
+			if (overviewChar >= 26) overviewChar = 0;
 			continue;
 		} else if ( appendixId.includes(page.category) && !indented ) {
 			page.number = appendixSymbol;
