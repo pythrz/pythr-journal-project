@@ -77,35 +77,12 @@
 }
 :is(.pythr) .notable {
   background: var(--block-background);
-  margin: 1.4em;
+  margin: 1.5em 4em;
   padding: 1.4em;
   border-width: 3px 1px;
   border-style: solid;
   border-color: #212121;
   filter: drop-shadow(0 5px 8px var(--shadow-15));
-}
-:is(.pythr) .notable::before,
-:is(.pythr) .notable::after {
-  content: "";
-  height: 11px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  filter: var(--notable-filter, none);
-}
-:is(.pythr) .notable::before {
-  top: -13px;
-}
-:is(.pythr) .notable::after {
-  bottom: -13px;
-  transform: scaleY(-1);
-}
-:is(.pythr) .notable > :first-child {
-  margin-block-start: 0;
-}
-:is(.pythr) .notable > :last-child {
-  margin-block-end: 0;
 }
 :is(.pythr) .narrative {
   --dot-size: 0.6em;
@@ -113,7 +90,6 @@
   position: relative;
   margin: 1.5em 1em;
   padding: 1em 1.5em;
-  /*background: var(--block-background);*/
   background: #231a1b;
   border-left: 1px solid rgba(var(--border-color), 1);
   border-right: 1px solid rgba(var(--border-color), 1);
@@ -670,7 +646,7 @@
 		border: none;
 	}
 	
-	.pythr.journal-entry .journal-page-content .quest:not(.encounter) h4,
+	.pythr.journal-entry .journal-page-content .quest h4,
 	.pythr.journal-entry .journal-page-content .advice h4,
 	.pythr.journal-entry .journal-page-content .advice h5,
 	.pythr.journal-entry .journal-page-content .notable h4,
@@ -681,9 +657,12 @@
 		text-transform: uppercase;
 		padding-bottom: 8px;
 		border-bottom: 2px solid rgba(var(--border-color), 0.5);
-		margin-block-start: 0.8em;
 		font-size: 1.3em;
 		color: white;
+	}
+	
+	.pythr.journal-entry .journal-page-content .quest:is([data-button-type="encounter"]) h4 {
+		margin: 8px 0 8px;
 	}
 	
 	.pythr.journal-entry .journal-page-content .notable h5 {
@@ -703,7 +682,7 @@
 		margin-top: 0.75rem;
 		margin-left: 1rem;
 		margin-bottom: 0.5rem;
-		border: 2px solid rgba(var(--border-color), 0.5);
+		border: 1px solid rgba(var(--border-color), 0.5);
 		background-color: #4a2525;
 		border-radius: 5px;
 		text-align: center;
@@ -842,24 +821,4 @@
 
 .pythr menu.controls-dropdown {
 	z-index: 2;
-}
-
-div:is(.sheet) header:is(.window-header) a:is(.header-button, .control) {
-	max-width: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-	transition: max-width 1s;
-}
-
-div:is(.sheet) header:is(.window-header) a:is(.header-button, .control):hover {
-	max-width: 200px;
-}
-
-div:is(.sheet) header:is(.window-header) a:is(.header-button, .control):last-child {
-	max-width: 200px
-}
-
-#pause {
-	top: unset;
-	bottom: 10%;
 }
