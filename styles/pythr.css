@@ -395,24 +395,44 @@
 		 TOC Collapse
 	------------------*/
 	
-	nav.toc ol li.category {
+	:is(.pythr, .journal-entry, .sheet) nav.toc {
+		padding-right: 1rem;
+		margin-right: -1rem;
+		overflow-y: scroll;
+	}
+	
+	:is(.pythr, .journal-entry, .sheet) nav.toc ol {
+		min-width: var(--sidebar-width-collapsed);
+	}
+	
+	:is(.pythr) nav.toc ol li.category {
 		cursor: pointer
 	}
 	
-	nav.toc ol div.collapseTOC {
+	:is(.pythr) nav.toc ol div.collapseTOC {
+		--child-radius: 15px;
 		grid-template-rows: 1fr;
 		transition: grid-template-rows 0.5s ease;
 		display: grid;
 		overflow: hidden;
 	}
 	
-	nav.toc ol div.collapseTOC:not(.active) {
+	:is(.pythr) nav.toc ol div.collapseTOC:not(.active) {
 		grid-template-rows: 0fr;
 		overflow: hidden;
 	}
 	
-	nav.toc ol div.collapseTOC div {
+	:is(.pythr) nav.toc ol div.collapseTOC div {
 		min-height: 0;
+		max-width: calc(var(--sidebar-width-expanded) - 0.7rem);
+	}
+	
+	:is(.pythr, .journal-entry, .sheet):not(.expanded) nav.toc ol div.collapseTOC div {
+		max-width: 40px;
+	}
+	
+	:is(.pythr) nav.toc ol div.collapseTOC li.page:last-child {
+		border-bottom-right-radius: var(--child-radius);
 	}
 	
 	/*------------------
@@ -599,15 +619,16 @@
 	}
 
 	.pythr.journal-entry .toc li.category {
-	   margin: 0.5rem 0 0.25rem 0;
+	   margin: 0.5rem 0 0 0;
 	   border-bottom: 0.075rem solid rgba(var(--border-color), 1);
 	   border-top: 0.125rem solid rgba(var(--border-color), 1);
-	   border-radius: 0 6px 6px 0;
+	   border-radius: 0 5px 0 0;
 	   background-color: rgba(130, 98, 106, 0.15)
 	}
 	 
 	.pythr.journal-sheet.application:not(.expanded) .toc li.category {
 		 margin: 0;
+		 min-width: var(--sidebar-width-collapsed);
 	}
 	 
 	.pythr.journal-entry .journal-page-content .narrative p {
