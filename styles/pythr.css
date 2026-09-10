@@ -848,7 +848,7 @@ div:is(.sheet) header:is(.window-header) a:is(.header-button, .control) {
 	max-width: 20px;
 	white-space: nowrap;
 	overflow: hidden;
-	transition: max-width 1s
+	transition: max-width 1s;
 }
 
 div:is(.sheet) header:is(.window-header) a:is(.header-button, .control):hover {

@@ -20,27 +20,27 @@ const status_colours = {0: "#ff4f4f", 1: "#ceb833", 2: "#33ce40", 5: "#3f3f40"}
 let theatre_inserts_active = false;
 
 const PYTHR_STYLES = {
-  advice: { class: "fvtt advice", icon: "icons/magic/symbols/clover-luck-white-green.webp"},
+  advice: { class: "advice", icon: "icons/magic/symbols/clover-luck-white-green.webp"},
   quest: {
-    class: "fvtt quest",
+    class: "quest",
     icon: "icons/magic/symbols/question-stone-yellow.webp",
   },
   treasure: {
-    class: "fvtt quest",
+    class: "quest",
 	icon: "icons/commodities/currency/coins-leather-pouch-stone.webp"
   },
   encounter: {
-	  class: "fvtt quest",
+	  class: "quest",
 	  icon: "icons/magic/symbols/rune-sigil-hook-white-red.webp",
   },
-  narrative: { class: "fvtt narrative", type: "div" },
+  narrative: { class: " narrative", type: "div" },
   notable: { class: "notable", type: "aside" },
   milestone: {
-	  class: "fvtt quest",
+	  class: "quest",
 	  icon: "icons/magic/symbols/star-solid-gold.webp",
   },
   development: {
-	  class: "fvtt quest",
+	  class: "quest",
 	  icon: "icons/sundries/books/book-open-brown-black.webp"
   }
 };
@@ -96,10 +96,10 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
                     action: "pjp_narrative",
                     title: "Narrative",
                     node: menu.schema.nodes.div,
-                    attrs: { class: "fvtt narrative" },
+                    attrs: { class: "narrative" },
                     cmd: () => {
                         menu._toggleBlock(menu.schema.nodes.div, wrapIn, {
-                            attrs: { _preserve: { class: "fvtt narrative" } },
+                            attrs: { _preserve: { class: " narrative" } },
                         });
                         return true;
                     },
@@ -111,7 +111,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 					cmd: () => {
 						const { schema } = menu;
 						const divNode = schema.nodes.div.create(
-							{ _preserve: { class: "fvtt quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "encounter" } },
+							{ _preserve: { class: "quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "encounter" } },
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
@@ -124,7 +124,13 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 										null,
 										schema.text("Combatants")
 									),
-									schema.nodes.ordered_list.create(null, schema.nodes.list_item.create(null, schema.text("Combatant (xN)")))
+									schema.nodes.ordered_list.create(null, schema.nodes.list_item.create(
+										null, 
+										schema.nodes.paragraph.create(
+											null,
+											schema.text("Combatant (xN)")
+										),
+									))
 								]),
 								schema.nodes.article.create(null, [
 									schema.nodes.heading.create(
@@ -149,7 +155,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 					cmd: () => {
 						const { schema } = menu;
 						const divNode = schema.nodes.div.create(
-							{ _preserve: { class: "fvtt quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "development" } },
+							{ _preserve: { class: "quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "development" } },
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
@@ -180,7 +186,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 					cmd: () => {
 						const { schema } = menu;
 						const divNode = schema.nodes.div.create(
-							{ _preserve: { class: "fvtt quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "treasure" } },
+							{ _preserve: { class: "quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "treasure" } },
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
@@ -211,7 +217,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 					cmd: () => {
 						const { schema } = menu;
 						const divNode = schema.nodes.div.create(
-							{ _preserve: { class: "fvtt advice" } },
+							{ _preserve: { class: "advice" } },
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
@@ -242,7 +248,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 					cmd: () => {
 						const { schema } = menu;
 						const divNode = schema.nodes.div.create(
-							{ _preserve: { class: "fvtt quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "milestone" } },
+							{ _preserve: { class: "quest", "data-button-id": Math.random().toString(36).slice(2), "data-button-type": "milestone" } },
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
@@ -444,7 +450,6 @@ function onRenderJournalEntryPageProseMirrorSheet(app, html, context, options) {
 		
 		
 		// Adding functionality for Encounter & Treasure buttons by appending it to the end of the container.
-		// I can't recall why I originally did this in a fashion that cloned the item and replaced the original with the new version.
 		const content = html.querySelector(`.journal-page-content`).querySelectorAll(`[data-button-id]`);
 		for(let em of content) {
 			if(em.dataset?.uuid?.toLowerCase().includes("compendium")) continue;
@@ -628,14 +633,7 @@ Hooks.on("getJournalEntryPageContextOptions", (app, menu) => {
 	const convert_event = EventContextObject("Convert to Event", "fa-rotate", ["3", "4"], "0", app);
 	const delete_event = EventContextObject("Remove Event Status", "fa-eraser", ["0", "1", "2", "5"], "4", app);
 	
-	// Add context menu buttons to spots after Edit
-	/*menu.splice(1, 0, reset_context);
-	menu.splice(1, 0, fail_event);
-	menu.splice(1, 0, complete_event);
-	menu.splice(1, 0, start_context);*/
-	
 	// Push context menu buttons to bottom of menu
-	
 	if ( foundry.utils.isSubclass(app.constructor, PythrJournal) && app.isEditable ) {
 		menu.push(start_context);
 		menu.push(complete_event);
@@ -754,18 +752,12 @@ function assignPages(toc, overviewId, appendixId, loc = false, loc_key = null) {
 				if(locationChar !== loc_key?.[currentOverview]) i = 1;
 				if(loc_key !== null && loc_key[currentOverview]) locationChar = loc_key[currentOverview]
 				else locationChar = page.name.charAt(0);
-				// page.name = page.name.substring(1, page.name.length);
 			} continue;
 		}
 		
 		const indented = ["level2", "level3"].some(e => {return page.tocClass.includes(e)});
 		
 		if ( overviewId.includes(page.category) && !indented ) {
-			/*if (page.category !== currentOverview) {
-				overviewChar = 0;
-				currentOverview = page.category;
-			}*/
-			
 			if(overviewId.length > 1) {
 				if (page.category !== currentOverview) {
 					if(currentOverview !== overviewId[0]) overviewChar++;
