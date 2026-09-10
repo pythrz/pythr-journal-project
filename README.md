@@ -45,7 +45,7 @@ Event statuses can be managed either through the editor's dropdown, the buttons 
 The event status will be displayed on the journal's table of contents with a small badge. Any embeds that link to that journal page will also display the journal's event status. Similar to the event status tracking, these are made to be as simple to toggle as possible, to allow for easy tracking in the middle of a session.
 
 ## Insertable Event Blocks
-Sometimes, you need something to visually break away from any dense text that may be featured in your journals. Borrowing styling from the [D&D5e system](https://github.com/foundryvtt/dnd5e), you can easily insert one of these by following these steps:
+Sometimes, you need something to visually break away from any dense text that may be featured in your journals. You can easily insert one of these text blocks by following these steps:
 1. Open the editor for the journal entry page;
 2. On the leftside of the editor format bar, click on the dropdown that says "Format";
 3. Navigate to the section that's called "Pythr Journals" and hover over it;
