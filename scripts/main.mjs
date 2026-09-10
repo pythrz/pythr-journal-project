@@ -451,14 +451,14 @@ function onRenderJournalEntryPageProseMirrorSheet(app, html, context, options) {
 		}
 		
 		// Inject the JournalEntryPage Embed status after the previous routine, to prevent overwriting it.
-		const embedStatusTargets = html.querySelector(`.journal-page-content`).querySelectorAll(`a[data-type="JournalEntryPage"], a[data-type="Scene"]${theatre_inserts_active ? ", a[data-type=\"Actor\"]" : ""}`);
+		const embedStatusTargets = html.querySelector(`.journal-page-content`).querySelectorAll(`a[data-type="JournalEntryPage"], a[data-type="Scene"]${(theatre_inserts_active && game.settings.get(MODULE_ID, "enableTheatreInsertsEmbed")) ? ", a[data-type=\"Actor\"]" : ""}`);
 		for(let em of embedStatusTargets) {
 			if(em.dataset?.uuid?.toLowerCase().includes("compendium")) continue;
 			const first_child = em.children[0];
 			
 			if(em.dataset?.type == "Scene" && game.user.isGM) {
 				addSceneViewButtonEmbed(em, app);
-			} else if(em.dataset?.type == "Actor" && game.user.isGM) {
+			} else if(game.settings.get(MODULE_ID, "enableTheatreInsertsEmbed") && em.dataset?.type == "Actor" && game.user.isGM) {
 				if(["loot actor", "hazard actor", "vehicle actor", "army actor", "party actor"].includes(em.ariaLabel?.toLowerCase())) continue;
 				if(theatre_inserts_active) addTheatreButtonEmbed(em, app);
 			} else if(em.dataset?.type == "JournalEntryPage") {
@@ -854,17 +854,21 @@ function addTheatreButtonEmbed (em, app) {
 		const addToTheatreButton = document.createElement("a");
 		addToTheatreButton.classList.add("enricher-action");
 		addToTheatreButton.setAttribute('data-tooltip', '');
-		addToTheatreButton.setAttribute('aria-label', 'Add Actor to Theater Bar');
+		addToTheatreButton.setAttribute('aria-label', `${is_actor_staged ? 'Remove Actor from Theater Bar' : 'Add Actor to Theater Bar'}`);
 		addToTheatreButton.innerHTML = `<i class="fa-regular ${is_actor_staged ? "fa-user-minus" : "fa-masks-theater"}"></i>`;
 		addToTheatreWrapper.append(addToTheatreButton);
 				
-		addToTheatreButton.addEventListener('click', () => {
+		addToTheatreButton.addEventListener('click', (e) => {
 			if(is_actor_staged) {
 				Theatre.removeFromNavBar(actor_to_add);
 			} else {
 				Theatre.addToNavBar(actor_to_add);
 			} is_actor_staged = !is_actor_staged;
-			app.render();
+			let el = e.target
+			if (e.target.classList.contains('enricher-action')) el = e.target.firstChild
+			el.parentElement.setAttribute('aria-label', `${is_actor_staged ? 'Remove Actor from Theater Bar' : 'Add Actor to Theater Bar'}`);
+			el.classList.remove(`${is_actor_staged ? "fa-masks-theater" : "fa-user-minus"}`)
+			el.classList.add(`${is_actor_staged ? "fa-user-minus" : "fa-masks-theater"}`)
 		})
 					
 	em.replaceWith(addToTheatreWrapper);
@@ -935,7 +939,7 @@ function registerGameSettings() {
 	game.settings.register(MODULE_ID, "tocEventStyle", {
 		name: "TOC Event Status Style",
 		hint: "TOC Styling that Represents Event Status",
-		scope: "world",
+		scope: "user",
 		config: true,
 		default: 2,
 		type: Number,
@@ -946,13 +950,22 @@ function registerGameSettings() {
 		}
 	})
 	
+	game.settings.register(MODULE_ID, "enableTheatreInsertsEmbed", {
+	  name: "Enable Theatre Inserts Integration",
+	  hint: "Adds a small button next to embedded Actors that allows for easy management of the stage. (Requires Theatre Inserts)",
+	  scope: "client",
+	  config: true,
+	  default: true,
+	  type: Boolean
+	})
+	
 	game.settings.register(MODULE_ID, "styleAdviceIcon", {
 		name: "Default Advice Icon",
 		hint: "Default icon when creating an Advice Block.",
 		scope: "user",
 		config: true,
 		type: String,
-		filePicker: true,
+		filePicker: "image",
 		default: "icons/magic/symbols/clover-luck-white-green.webp"
 	})
 	
@@ -962,7 +975,7 @@ function registerGameSettings() {
 		scope: "user",
 		config: true,
 		type: String,
-		filePicker: true,
+		filePicker: "image",
 		default: "icons/magic/symbols/rune-sigil-hook-white-red.webp"
 	})
 	
@@ -972,7 +985,7 @@ function registerGameSettings() {
 		scope: "user",
 		config: true,
 		type: String,
-		filePicker: true,
+		filePicker: "image",
 		default: "icons/magic/symbols/star-solid-gold.webp"
 	})
 	
@@ -982,7 +995,7 @@ function registerGameSettings() {
 		scope: "user",
 		config: true,
 		type: String,
-		filePicker: true,
+		filePicker: "image",
 		default: "icons/sundries/books/book-open-brown-black.webp"
 	})
 	
@@ -992,7 +1005,7 @@ function registerGameSettings() {
 		scope: "user",
 		config: true,
 		type: String,
-		filePicker: true,
+		filePicker: "image",
 		default: "icons/commodities/currency/coins-leather-pouch-stone.webp"
 	})
 }
