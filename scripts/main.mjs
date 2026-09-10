@@ -8,6 +8,7 @@ const completed_key = "completedFlag";
 const collapse_key = "collapsedFlag";
 const button_flags_key = "buttonStateFlags";
 const location_letter_key = "locationCharFlag";
+
 const completed_options = [
 	{ value: 3, label: "Undecided" },
 	{ value: 4, label: "N/A" },
@@ -18,32 +19,6 @@ const completed_options = [
 ]
 const status_colours = {0: "#ff4f4f", 1: "#ceb833", 2: "#33ce40", 5: "#3f3f40"}
 let theatre_inserts_active = false;
-
-const PYTHR_STYLES = {
-  advice: { class: "advice", icon: "icons/magic/symbols/clover-luck-white-green.webp"},
-  quest: {
-    class: "quest",
-    icon: "icons/magic/symbols/question-stone-yellow.webp",
-  },
-  treasure: {
-    class: "quest",
-	icon: "icons/commodities/currency/coins-leather-pouch-stone.webp"
-  },
-  encounter: {
-	  class: "quest",
-	  icon: "icons/magic/symbols/rune-sigil-hook-white-red.webp",
-  },
-  narrative: { class: " narrative", type: "div" },
-  notable: { class: "notable", type: "aside" },
-  milestone: {
-	  class: "quest",
-	  icon: "icons/magic/symbols/star-solid-gold.webp",
-  },
-  development: {
-	  class: "quest",
-	  icon: "icons/sundries/books/book-open-brown-black.webp"
-  }
-};
 
 Hooks.on("init", () => {	
 	const doc = foundry.applications.apps.DocumentSheetConfig;
@@ -66,19 +41,7 @@ Hooks.on("init", () => {
 		types: ["base"]
 	});
 	
-	game.settings.register(MODULE_ID, "tocEventStyle", {
-		name: "TOC Event Status Style",
-		hint: "TOC Styling that Represents Event Status",
-		scope: "world",
-		config: true,
-		default: 2,
-		type: Number,
-		choices: {
-			0: "None",
-			1: "Border",
-			2: "Coloured Tab"
-		}
-	})
+	registerGameSettings()
 	
 	theatre_inserts_active = game.modules.get("theatre")?.active ?? false;
 	
@@ -92,19 +55,19 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
             action: "pythr",
             title: "Pythr Journals",
             children: [
-                {
+                { // Narrative Block
                     action: "pjp_narrative",
                     title: "Narrative",
                     node: menu.schema.nodes.div,
                     attrs: { class: "narrative" },
                     cmd: () => {
                         menu._toggleBlock(menu.schema.nodes.div, wrapIn, {
-                            attrs: { _preserve: { class: " narrative" } },
+                            attrs: { _preserve: { class: "narrative" } },
                         });
                         return true;
                     },
                 },
-				{
+				{ // Encounter Block
 					action: "pjp_encounter",
 					title: "Encounter ☍",
 					node: menu.schema.nodes.div,
@@ -115,7 +78,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
-										src: PYTHR_STYLES.encounter.icon,
+										src: game.settings.get(MODULE_ID, "styleEncounterIcon"),
 										_preserve: { class: "round" },
 									}),
 								]),
@@ -148,7 +111,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 						return true;
 					}
 				},
-				{
+				{ // Development Block
 					action: "pjp_development",
 					title: "Development ☍",
 					node: menu.schema.nodes.div,
@@ -159,7 +122,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
-										src: PYTHR_STYLES.development.icon,
+										src: game.settings.get(MODULE_ID, "styleDevelopmentIcon"),
 										_preserve: { class: "round" },
 									}),
 								]),
@@ -179,7 +142,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 						return true;
 					}
 				},
-				{
+				{ // Treasure Block
 					action: "pjp_treasure",
 					title: "Treasure ☍",
 					node: menu.schema.nodes.div,
@@ -190,7 +153,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
-										src: PYTHR_STYLES.treasure.icon,
+										src: game.settings.get(MODULE_ID, "styleTreasureIcon"),
 										_preserve: { class: "round" },
 									}),
 								]),
@@ -210,7 +173,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 						return true;
 					}
 				},
-				{
+				{ // Advice Block
 					action: "pjp_advice",
 					title: "Advice",
 					node: menu.schema.nodes.div,
@@ -221,7 +184,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
-										src: PYTHR_STYLES.advice.icon,
+										src: game.settings.get(MODULE_ID, "styleAdviceIcon"),
 										_preserve: { class: "round" },
 									}),
 								]),
@@ -241,7 +204,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 						return true;
 					}
 				},
-				{
+				{ // Milestone Block
 					action: "pjp_milestone",
 					title: "Milestone ☍",
 					node: menu.schema.nodes.div,
@@ -252,7 +215,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 							[
 								schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
 									schema.nodes.image.create({
-										src: PYTHR_STYLES.milestone.icon,
+										src: game.settings.get(MODULE_ID, "styleMilestoneIcon"),
 										_preserve: { class: "round" },
 									}),
 								]),
@@ -265,6 +228,31 @@ Hooks.on("getProseMirrorMenuDropDowns", (menu, items) => {
 								schema.nodes.paragraph.create(
 									null,
 									schema.text("This is an milestone block, potentially awarding [[/award 0xp each]]."),
+								),
+							]
+						);
+						menu.view.dispatch(menu.view.state.tr.replaceSelectionWith(divNode));
+						return true;
+					}
+				},
+				{ // Notable Block
+					action: "pjp_notable",
+					title: "Notable",
+					node: menu.schema.nodes.div,
+					cmd: () => {
+						const { schema } = menu;
+						const divNode = schema.nodes.div.create(
+							{ _preserve: { class: "notable" } },
+							[
+								schema.nodes.article.create(null, [
+									schema.nodes.heading.create(
+										{ level: 4 },
+										schema.text("Notable Section"),
+									)
+								]),
+								schema.nodes.paragraph.create(
+									null,
+									schema.text("This is an notable section."),
 								),
 							]
 						);
@@ -940,4 +928,71 @@ function addButtonStatusEmbed (em, app) {
 					
 	// em.append(treasureButtonWrapper);
 	// em.replaceWith(treasureSection);
+}
+
+function registerGameSettings() {
+	// TOC event style setting
+	game.settings.register(MODULE_ID, "tocEventStyle", {
+		name: "TOC Event Status Style",
+		hint: "TOC Styling that Represents Event Status",
+		scope: "world",
+		config: true,
+		default: 2,
+		type: Number,
+		choices: {
+			0: "None",
+			1: "Border",
+			2: "Coloured Tab"
+		}
+	})
+	
+	game.settings.register(MODULE_ID, "styleAdviceIcon", {
+		name: "Default Advice Icon",
+		hint: "Default icon when creating an Advice Block.",
+		scope: "user",
+		config: true,
+		type: String,
+		filePicker: true,
+		default: "icons/magic/symbols/clover-luck-white-green.webp"
+	})
+	
+	game.settings.register(MODULE_ID, "styleEncounterIcon", {
+		name: "Default Encounter Icon",
+		hint: "Default icon when creating an Encounter Block.",
+		scope: "user",
+		config: true,
+		type: String,
+		filePicker: true,
+		default: "icons/magic/symbols/rune-sigil-hook-white-red.webp"
+	})
+	
+	game.settings.register(MODULE_ID, "styleMilestoneIcon", {
+		name: "Default Milestone Icon",
+		hint: "Default icon when creating an Milestone Block.",
+		scope: "user",
+		config: true,
+		type: String,
+		filePicker: true,
+		default: "icons/magic/symbols/star-solid-gold.webp"
+	})
+	
+	game.settings.register(MODULE_ID, "styleDevelopmentIcon", {
+		name: "Default Development Icon",
+		hint: "Default icon when creating an Development Block.",
+		scope: "user",
+		config: true,
+		type: String,
+		filePicker: true,
+		default: "icons/sundries/books/book-open-brown-black.webp"
+	})
+	
+	game.settings.register(MODULE_ID, "styleTreasureIcon", {
+		name: "Default Treasure Icon",
+		hint: "Default icon when creating an Treasure Block.",
+		scope: "user",
+		config: true,
+		type: String,
+		filePicker: true,
+		default: "icons/commodities/currency/coins-leather-pouch-stone.webp"
+	})
 }
