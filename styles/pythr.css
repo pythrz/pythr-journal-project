@@ -193,6 +193,7 @@
 	  
 	  --base-color: 254, 255, 209;
 	  --font-color: rgba(var(--base-color), 1);
+	  --category-background-color: 130, 98, 106;
 	  --border-color: 251, 252, 172;
 	  --box-border-color: rgba(var(--border-color), 0.8);
 	  --color-highlight-rgb: 247, 176, 143;
@@ -249,7 +250,7 @@
 
 	.pythr.journal-entry,
 	.pythr.journal-entry .journal-entry-content {
-	  background: rgba(var(--current-background-color), 0.95)!important;
+	  background: rgba(var(--current-background-color), 0.95);
 	}
 	
 	.pythr.journal-entry .journal-entry-page h1,
@@ -356,14 +357,14 @@
 	}
 	
 	.event-create-button::before {
-		font-size: 10pt!important;
+		font-size: 10pt;
 	}
 	
 	.event-create-button p {
 		font-family: var(--font-sans);
 		text-transform: capitalize;
 		font-weight: normal;
-		font-size: 10pt!important; 
+		font-size: 10pt; 
 		margin: 0;
 	}
 	
@@ -409,17 +410,41 @@
 		cursor: pointer
 	}
 	
+	:is(.pythr) nav.toc ol li.category::after {
+		content: '\f106';
+		font-family: var(--fa-family-classic);
+		font-weight: 400;
+		float: right;
+		margin-top: -28px;
+		margin-right: 15px;
+		animation: margin 0.2s ease-in;
+	}
+	
+	:is(.pythr) nav.toc ol li.category.colactive::after {
+		content: '\f107';
+	}
+	
 	:is(.pythr) nav.toc ol div.collapseTOC {
 		--child-radius: 15px;
 		grid-template-rows: 1fr;
 		transition: grid-template-rows 0.5s ease;
 		display: grid;
 		overflow: hidden;
+		
+		background: rgba(var(--category-background-color), 0.05);
+		border-bottom-right-radius: var(--child-radius);
+	}
+	
+	:is(.pythr) nav.toc ol div.collapseTOC.show {
+		overflow: visible;
+	}
+	
+	:is(.pythr) nav.toc ol div.collapseTOC.hide {
+		overflow: hidden;
 	}
 	
 	:is(.pythr) nav.toc ol div.collapseTOC:not(.active) {
 		grid-template-rows: 0fr;
-		overflow: hidden;
 	}
 	
 	:is(.pythr) nav.toc ol div.collapseTOC div {
@@ -464,7 +489,7 @@
 		margin-left: 3px;
 	}
 	
-	:is(.pythr) :is(h1, h2, h3, h4, h5, h6) a.content-link {
+	:is(.pythr)  .journal-page-content :is(h1, h2, h3, h4, h5, h6) a.content-link {
 		line-height: inherit;
 	}
 	
@@ -479,7 +504,7 @@
 	}
 	
 	.pythr .journal-page-content :is(td, th, .encounter li, .advice, .notable, .quest) a.content-link,
-	:is(.pythr) :is(h1, h2, h3, h4, h5, h6) a.content-link {
+	:is(.pythr) .journal-page-content :is(h1, h2, h3, h4, h5, h6) a.content-link {
 		background: none;
 		border: none;
 		padding: 0;
@@ -594,7 +619,7 @@
 	  color: white;
 	}
 	
-	.pythr.journal-entry .toc li.page ol.headings {
+	:is(.pythr, .journal-entry) .toc.hide-headings li.page ol.headings {
 		display: none;
 	}
 
@@ -623,7 +648,9 @@
 	   border-bottom: 0.075rem solid rgba(var(--border-color), 1);
 	   border-top: 0.125rem solid rgba(var(--border-color), 1);
 	   border-radius: 0 5px 0 0;
-	   background-color: rgba(130, 98, 106, 0.15)
+	   background-color: rgba(var(--category-background-color), 0.15);
+	   overflow: hidden;
+	   white-space: nowrap;
 	}
 	 
 	.pythr.journal-sheet.application:not(.expanded) .toc li.category {
@@ -815,11 +842,6 @@
 		margin: 0 0.5rem;
 	}
 	
-	/* Ownership-viewer */
-	.pythr.journal-entry:not(.expanded) div.ownership-viewer {
-		display: none!important;
-	}
-	
 	.pythr.journal-entry :is(span[data-pf2-action][data-secret], a.inline-check[data-pf2-traits*=secret]) {
 		background: rgba(11, 10, 19, 0.9);
 	}
@@ -842,4 +864,9 @@
 
 .pythr menu.controls-dropdown {
 	z-index: 2;
+}
+
+/* Ownership-viewer */
+.pythr.journal-entry:not(.expanded) div.ownership-viewer {
+	display: none;
 }
