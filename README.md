@@ -45,7 +45,7 @@ There are three methods of adding an event status to a journal's page:
 
 Event statuses can be managed either through the editor's dropdown, the buttons and/or dropdown provided while the page is open, or by right-clicking either the journal page within the table of contents or an embed that links to the journal page.
 
-The event status will be displayed on the journal's table of contents with a small badge. Any embeds that link to that journal page will also display the journal's event status. Similar to the event status tracking, these are made to be as simple to toggle as possible, to allow for easy tracking in the middle of a session.
+The event status will be displayed on the journal's table of contents with a small badge, with an additional style option that is customizable under the module's settings (Game Settings > Configure Settings > Pythr's Journal Project). Any embeds that link to that journal page will also display the journal's event status. Similar to the event status tracking, these are made to be as simple to toggle as possible, to allow for easy tracking in the middle of a session.
 
 ## Insertable Event Blocks
 Sometimes, you need something to visually break away from any dense text that may be featured in your journals. You can easily insert one of these text blocks by following these steps:
@@ -60,9 +60,15 @@ Some of the options are appended by a "**☍**" icon. When you need to track mul
 
 <img height="247" alt="Toggle Block State" src="https://github.com/user-attachments/assets/1d06489e-e6da-40a5-89dd-1614a115a070" />
 
+The images featured in these blurbs can be modified through the **module's settings**, which can be found under Game Settings > Configure Settings > Pythr's Journal Project.
 
 ## Enhanced Embed Functionality
 A few functionalities have been added whenever you embed a document (such as a journal entry page or scene) onto a journal entry page. These additional functions only work for GM users.
 - As stated before, linking to any journal entry page that has a **event status** on it will display with an inline badge. You can quickly adjust an event's status by right-clicking on this embed.
 - When linking a scene onto a page, a small magnifying glass will appear next to it. Clicking on the magnifying glass will change the user's view to that linked scene.
 - If the [Theatre Inserts](https://github.com/League-of-Foundry-Developers/fvtt-module-theatre) module is installed and enabled, embedded actors on journal entry pages will have a small theatre mask next to their name, allowing for easy additions to the stage.
+
+## Miscellaneous Additions
+Small additions that don't warrant their own blurb:
+- Categories can be clicked to collapse and expand their associated entries, perfect for people who have journals with plenty of pages.
+- Hidden page subheaders in the table of contents, for people who enjoy a cleaner TOC. (This can be toggled in the module's settings, under Game Settings > Configure Settings > Pythr's Journal Project)
