@@ -511,14 +511,14 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 	
 	for( const content of context.toc ) {
 		if( content.isCategory ) {
+			if( content.id == 'uncategorized' ) continue;
 			collection[content.id] = []
 			continue;
 		}
-		
 		const sheet = app.getPageSheet(content.id)
 		const eventStatus = sheet.document.getFlag(MODULE_ID, completed_key);
 		const heading = html.querySelector(`[data-page-id="${content.id}"]`);
-		if( content.category ) collection[content.category].push(heading)
+		if( content.category && collection?.[content.category] ) collection[content.category].push(heading)
 		
 		// Create a small indiciator next to TOC items correlating with Event Status
 		if(["0", "1", "2", "5"].includes(eventStatus)) {
@@ -645,18 +645,19 @@ Hooks.on("getJournalEntryPageContextOptions", (app, menu) => {
 });
 
 function EventContextObject(name, icon, start_key, target_key, app) {
+	const VERSION = game.world.coreVersion.split('.')[0];
 	const obj = {
-		name: name, // v13
-		label: name, // v14
+		[`${VERSION == 13 ? 'name' : 'label'}`]: name,
 		icon: `<i class=\"fa-solid ${icon}\"></i>`,
-		visible: (li) => {
+		[`${VERSION == 13 ? 'condition' : 'visible'}`]: li => {
 			let page;
 			if(li[0]?.dataset?.uuid) page = pageFromUuid(li[0].dataset.uuid);
 			else page = app?.getPageSheet(li.dataset.pageId).document;
 			if(app.isEditable && start_key.includes(page.getFlag(MODULE_ID, completed_key) ?? "4")) return true
 			else return false
 		},
-		callback: (li) => {
+		[`${VERSION == 13 ? 'callback' : 'onClick'}`]: (...vars) => {
+			let li = vars[VERSION == 13 ? 0 : 1]
 			let page;
 			if(li[0]?.dataset?.uuid) {
 				li[0].classList.add(status_to_css[target_key]);
