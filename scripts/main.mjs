@@ -871,7 +871,7 @@ function addTheatreButtonEmbed (em, app) {
 		addToTheatreButton.classList.add("enricher-action");
 		addToTheatreButton.setAttribute('data-tooltip', '');
 		addToTheatreButton.setAttribute('aria-label', `${is_actor_staged ? 'Remove Actor from Theater Bar' : 'Add Actor to Theater Bar'}`);
-		addToTheatreButton.innerHTML = `<i class="fa-regular ${is_actor_staged ? "fa-user-minus" : "fa-masks-theater"}"></i>`;
+		addToTheatreButton.innerHTML = `<i class="fa-solid ${is_actor_staged ? "fa-user-minus" : "fa-masks-theater"}"></i>`;
 		addToTheatreWrapper.append(addToTheatreButton);
 				
 		addToTheatreButton.addEventListener('click', (e) => {
