@@ -503,6 +503,12 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 	/*  Event Status on TOC  */
 	// --------------------- //	
 	var collection = {}
+	
+	if( game.settings.get(MODULE_ID, "hideJournalEntryHeadings") === true ) {
+		const toc = html.querySelector(`.toc`)
+		toc.classList.add("hide-headings");
+	}
+	
 	for( const content of context.toc ) {
 		if( content.isCategory ) {
 			collection[content.id] = []
@@ -545,12 +551,13 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 		const active = app.document.getFlag(MODULE_ID, collapse_key)?.[key] ?? true
 		if( active ) {
 			wrapper.classList.add('active')
-			wrapper.style.overflow = 'visible'
+			wrapper.classList.add('show')
 		} else {
 			heading.classList.add('colactive')
+			wrapper.classList.add('hide')
 		}
 		
-		wrapper.dataset.categoryId = key
+		wrapper.dataset.categoryId = key;
 		
 		const innerWrapper = document.createElement('div')
 		wrapper.appendChild(innerWrapper)
@@ -570,11 +577,16 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 			if( heading.classList.contains('colactive') ) {
 				keys[id] = false
 				content.classList.remove('active')
-				content.style.overflow = 'hidden'
+				content.classList.remove('show')
+				content.classList.add('hide')
 			} else {
 				keys[id] = true
 				content.classList.add('active')
-				setTimeout(() => { content.style.overflow = heading.classList.contains('colactive') ? 'hidden' : 'visible' }, 500);
+				setTimeout(() => { 
+					content.classList.add(`${heading.classList.contains('colactive') ? 'hide' : 'show'}`)
+					content.classList.remove(`${heading.classList.contains('colactive') ? 'show' : 'hide'}`)
+				}, 500);
+				// setTimeout(() => { content.style.overflow = heading.classList.contains('colactive') ? 'hidden' : 'visible' }, 500);
 			}
 			
 			if( app.isEditable ) app.document.update({flags: {[MODULE_ID]: {[collapse_key]: keys}}}, {render: false})
@@ -895,10 +907,6 @@ function addButtonStatusEmbed (em, app) {
 		const list = em.querySelector("aside.encounter")?.querySelector("ol") ?? null;
 		if(list) list.style.textDecoration = "line-through";
 		check.classList.add('fa-square-check');
-		
-		/*for(let line_through of [title, list]) {
-			if(line_through) line_through.style.textDecoration = "line-through";
-		}*/
 	} else {
 		check.classList.add('fa-square');
 	}
@@ -909,36 +917,13 @@ function addButtonStatusEmbed (em, app) {
 		current_flag = cur_map[button_key];
 		doc.setFlag(MODULE_ID, button_flags_key, cur_map);
 	});	
-	
-	/*const treasureButtonWrapper = document.createElement('div');
-	treasureButtonWrapper.classList.add('pjp-section-button-container');
-					
-	const treasureButtonText = document.createElement('span');
-	treasureButtonText.innerHTML = `<p>${is_treasure ? "Claimed" : "Completed"}</p>`
-					
-	const treasureButtonInput = document.createElement('input');
-	treasureButtonInput.type = `checkbox`;
-	treasureButtonInput.checked = current_flag;*/			
-	
-	/*treasureButtonInput.addEventListener('click', () => {
-		let cur_map = doc.getFlag(MODULE_ID, button_flags_key) ?? {};
-		cur_map[button_key] = !cur_map[button_key] ?? true;
-		current_flag = cur_map[button_key];
-		doc.setFlag(MODULE_ID, button_flags_key, cur_map);
-	});*/
-					
-	//treasureButtonWrapper.append(treasureButtonText);
-	//treasureButtonWrapper.append(treasureButtonInput);
-					
-	// em.append(treasureButtonWrapper);
-	// em.replaceWith(treasureSection);
 }
 
 function registerGameSettings() {
 	// TOC event style setting
 	game.settings.register(MODULE_ID, "tocEventStyle", {
-		name: "TOC Event Status Style",
-		hint: "TOC Styling that Represents Event Status",
+		name: "TOC: Event Status Style",
+		hint: "Changes the TOC styling that represents Event Status. (Reload Journals after Changing)",
 		scope: "user",
 		config: true,
 		default: 2,
@@ -950,8 +935,17 @@ function registerGameSettings() {
 		}
 	})
 	
+	game.settings.register(MODULE_ID, "hideJournalEntryHeadings", {
+		name: "TOC: Hide Page Subheadings",
+		hint: "Hides the subheadings that appear under a viewed page's header in the Table of Contents. (Reload journals after changing)",
+		scope: "user",
+		config: true,
+		type: Boolean,
+		default: true
+	})
+	
 	game.settings.register(MODULE_ID, "enableTheatreInsertsEmbed", {
-	  name: "Enable Theatre Inserts Integration",
+	  name: "EMBED: Enable Theatre Inserts Integration",
 	  hint: "Adds a small button next to embedded Actors that allows for easy management of the stage. (Requires Theatre Inserts)",
 	  scope: "client",
 	  config: true,
