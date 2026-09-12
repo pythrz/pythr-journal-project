@@ -410,14 +410,17 @@
 		cursor: pointer
 	}
 	
-	:is(.pythr) nav.toc ol li.category::after {
-		content: '\f106';
+	:is(.pythr):is(.expanded) nav.toc ol li.category::after {
 		font-family: var(--fa-family-classic);
-		font-weight: 400;
 		float: right;
 		margin-top: -28px;
 		margin-right: 15px;
 		animation: margin 0.2s ease-in;
+	}
+	
+	:is(.pythr) nav.toc ol li.category::after {
+		content: '\f106';
+		font-size: var(--font-size-14);
 	}
 	
 	:is(.pythr) nav.toc ol li.category.colactive::after {
@@ -654,7 +657,6 @@
 	}
 	 
 	.pythr.journal-sheet.application:not(.expanded) .toc li.category {
-		 margin: 0;
 		 min-width: var(--sidebar-width-collapsed);
 	}
 	 
