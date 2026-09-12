@@ -442,7 +442,7 @@ function onRenderJournalEntryPageProseMirrorSheet(app, html, context, options) {
 		for(let em of content) {
 			if(em.dataset?.uuid?.toLowerCase().includes("compendium")) continue;
 			
-			if(game.user.isGM && em.dataset.buttonId) {
+			if(app.isEditable && em.dataset.buttonId) {
 				addButtonStatusEmbed(em, app);
 			} else {
 				console.warn(`Embed enricher somehow got an embed that isn't accepted.`);
@@ -469,6 +469,7 @@ function onRenderJournalEntryPageProseMirrorSheet(app, html, context, options) {
 				}
 				addJournalEventStatusEmbed(em, app, first_child);
 			} else {
+				if( !game.user.isGM ) continue;
 				console.warn(`Embed enricher somehow got an embed that isn't accepted.`);
 				console.warn(em);
 			}
@@ -543,11 +544,13 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 		if( !collection[key].length || !app.isEditable ) continue
 		
 		const heading = html.querySelector(`[data-category-id="${key}"]`);
+		heading.classList.add('collapsible');
 		
 		const wrapper = document.createElement('div')
 		wrapper.classList.add('collapseTOC')
 		
-		const active = app.document.getFlag(MODULE_ID, collapse_key)?.[key] ?? true
+		const active = app.document.getFlag(MODULE_ID, collapse_key)?.[key]?.[game.user.id] ?? true
+		
 		if( active ) {
 			wrapper.classList.add('active')
 			wrapper.classList.add('show')
@@ -572,14 +575,16 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 			const id = heading.dataset.categoryId
 			heading.classList.toggle('colactive');
 			var content = heading.nextElementSibling
-			var keys = app.document.getFlag(MODULE_ID, collapse_key) ?? {[id]: true}
+			var keys = app.document.getFlag(MODULE_ID, collapse_key) ?? {[id]: {[game.user.id]: true}}
+			if( typeof keys[id] === "boolean" ) keys[id] = { [game.user.id]: true } // If using the old method of storing data, update it.
+			
 			if( heading.classList.contains('colactive') ) {
-				keys[id] = false
+				keys[id][game.user.id] = false
 				content.classList.remove('active')
 				content.classList.remove('show')
 				content.classList.add('hide')
 			} else {
-				keys[id] = true
+				keys[id][game.user.id] = true
 				content.classList.add('active')
 				setTimeout(() => { 
 					content.classList.add(`${heading.classList.contains('colactive') ? 'hide' : 'show'}`)
@@ -652,7 +657,7 @@ function EventContextObject(name, icon, start_key, target_key, app) {
 			let page;
 			if(li[0]?.dataset?.uuid) page = pageFromUuid(li[0].dataset.uuid);
 			else page = app?.getPageSheet(li.dataset.pageId).document;
-			if(app.isEditable && start_key.includes(page.getFlag(MODULE_ID, completed_key) ?? "4")) return true
+			if(page.isOwner && start_key.includes(page.getFlag(MODULE_ID, completed_key) ?? "4")) return true
 			else return false
 		},
 		[`${VERSION == 13 ? 'callback' : 'onClick'}`]: (...vars) => {
@@ -949,12 +954,12 @@ function registerGameSettings() {
 	})
 	
 	game.settings.register(MODULE_ID, "enableTheatreInsertsEmbed", {
-	  name: "EMBED: Enable Theatre Inserts Integration",
-	  hint: "Adds a small button next to embedded Actors that allows for easy management of the stage. (Requires Theatre Inserts)",
-	  scope: "client",
-	  config: true,
-	  default: true,
-	  type: Boolean
+		name: "EMBED: Enable Theatre Inserts Integration",
+		hint: "Adds a small button next to embedded Actors that allows for easy management of the stage. (Requires Theatre Inserts)",
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean,
 	})
 	
 	game.settings.register(MODULE_ID, "styleAdviceIcon", {
