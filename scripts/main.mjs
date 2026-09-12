@@ -541,13 +541,32 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 	
 	// Wrap each category section in a div.
 	for( var key in collection ) {
-		if( !collection[key].length || !app.isEditable ) continue
+		if( !collection[key].length ) continue
 		
 		const heading = html.querySelector(`[data-category-id="${key}"]`);
-		heading.classList.add('collapsible');
 		
 		const wrapper = document.createElement('div')
 		wrapper.classList.add('collapseTOC')
+		
+		const innerWrapper = document.createElement('div')
+		wrapper.appendChild(innerWrapper)
+		
+		const firstElement = collection[key][0]
+		firstElement.parentNode.insertBefore(wrapper, firstElement)
+		
+		wrapper.dataset.categoryId = key;
+		
+		for( const em of collection[key] ) {
+			innerWrapper.appendChild(em)
+		}
+		
+		if ( !app.isEditable ) {
+			wrapper.classList.add('active')
+			wrapper.classList.add('show')
+			continue;
+		}
+		
+		heading.classList.add('collapsible');
 		
 		const active = app.document.getFlag(MODULE_ID, collapse_key)?.[key]?.[game.user.id] ?? true
 		
@@ -557,18 +576,6 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 		} else {
 			heading.classList.add('colactive')
 			wrapper.classList.add('hide')
-		}
-		
-		wrapper.dataset.categoryId = key;
-		
-		const innerWrapper = document.createElement('div')
-		wrapper.appendChild(innerWrapper)
-		
-		const firstElement = collection[key][0]
-		firstElement.parentNode.insertBefore(wrapper, firstElement)
-		
-		for( const em of collection[key] ) {
-			innerWrapper.appendChild(em)
 		}
 		
 		heading.addEventListener('click', () => {
