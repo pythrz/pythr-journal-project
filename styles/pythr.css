@@ -418,12 +418,12 @@
 		animation: margin 0.2s ease-in;
 	}
 	
-	:is(.pythr) nav.toc ol li.category::after {
+	:is(.pythr) nav.toc ol li.category:not([data-category-id="uncategorized"])::after {
 		content: '\f106';
 		font-size: var(--font-size-14);
 	}
 	
-	:is(.pythr) nav.toc ol li.category.colactive::after {
+	:is(.pythr) nav.toc ol li.category:not([data-category-id="uncategorized"]).colactive::after {
 		content: '\f107';
 	}
 	
