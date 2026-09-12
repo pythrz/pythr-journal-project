@@ -389,7 +389,7 @@
 	}
 	
 	:is(.pythr) .fa-solid {
-		font-family: var(--_fa-family)
+		font-family: var(--font-awesome)
 	}
 	
 	/*------------------
@@ -411,7 +411,7 @@
 	}
 	
 	:is(.pythr):is(.expanded) nav.toc ol li.category::after {
-		font-family: var(--fa-family-classic);
+		font-family: var(--font-awesome);
 		float: right;
 		margin-top: -28px;
 		margin-right: 15px;
