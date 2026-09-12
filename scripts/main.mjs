@@ -646,7 +646,8 @@ Hooks.on("getJournalEntryPageContextOptions", (app, menu) => {
 
 function EventContextObject(name, icon, start_key, target_key, app) {
 	const obj = {
-		label: name,
+		name: name, // v13
+		label: name, // v14
 		icon: `<i class=\"fa-solid ${icon}\"></i>`,
 		visible: (li) => {
 			let page;
@@ -788,9 +789,10 @@ function assignPages(toc, overviewId, appendixId, loc = false, loc_key = null) {
 function addJournalEventStatusEmbed (em, app, first_child) {
 	let page;
 	try {
-		page = fromUuidSync(em.dataset.uuid);
+		page = pageFromUuid(em.dataset.uuid);
+		// page = fromUuidSync(em.dataset.uuid);
 	} catch {
-		console.warn(`pythr Journal Project | Journal Entry could not be loaded from UUID.`);
+		console.warn(`pythr Journal Project | Journal Entry could not be loaded from ID.`);
 		console.warn(em);
 	}
 	const event_status = page.getFlag(MODULE_ID, completed_key);
@@ -826,9 +828,10 @@ function addJournalEventStatusEmbed (em, app, first_child) {
 function addSceneViewButtonEmbed (em, app) {
 	let scene;
 	try {
-		scene = fromUuidSync(em.dataset.uuid);
+		scene = game.scenes.get(em.dataset.id);
+		// scene = fromUuidSync(em.dataset.uuid);
 	} catch {
-		console.warn(`pythr Journal Project | Scene could not be loaded from UUID.`);
+		console.warn(`pythr Journal Project | Scene could not be loaded from ID.`);
 		console.warn(em);
 	}
 	const viewSceneWrapper = document.createElement("span");
@@ -852,9 +855,10 @@ function addSceneViewButtonEmbed (em, app) {
 function addTheatreButtonEmbed (em, app) {
 	let actor_to_add;
 	try {
-		actor_to_add = fromUuidSync(em.dataset.uuid);
+		actor_to_add = game.actors.get(em.dataset.id);
+		// actor_to_add = fromUuidSync(em.dataset.uuid);
 	} catch {
-		console.warn(`pythr Journal Project | Actor could not be loaded from UUID.`);
+		console.warn(`pythr Journal Project | Actor could not be loaded from ID.`);
 		console.warn(em);
 		return;
 	}
