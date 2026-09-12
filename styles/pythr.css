@@ -518,7 +518,7 @@
 	}
 	
 	.pjp-event-embed-notstarted::after, .pjp-event-embed-started::after, .pjp-event-embed-complete::after, .pjp-event-embed-failed::after {
-		font-family: "Font Awesome 7 Pro", sans-serif;
+		font-family: var(--font-awesome);
 		font-weight: 900;
 		margin-left: 5px;
 		padding: 0.06rem 0.6rem;
