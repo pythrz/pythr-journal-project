@@ -21,6 +21,9 @@ To change your journal into the newly added journal sheet, follow these instruct
 6. (Optional) If you wish to change all of your journals that lack a manual sheet override, locate the "Defaults" section just underneath; under "Default Sheet," use the dropdown to select either **Pythr Journal Entry** or **Pythr Location Entry**.
 <img width="333" height="247" alt="Change Journal Sheet" src="https://github.com/user-attachments/assets/8c32e14b-e13d-4e2a-b554-1abc7d166b27" />
 
+### On Journal Formatting
+This module has been built to look the best when fully utilizing the Foundry VTT journals. Many of the features are enhanced by sorting your journal entry pages into categories, embedding relevant documents into your run-time session notes, and filling out the appropriate event blocks when applicable. However, it is up to you to determine how you wish to prepare and run your games, so you can disregard these features if they conflict with the workflow you've established for yourself.
+
 ### Journal Page Indexing
 Each journal sheet treats the indexing of its pages differently. This is purely a visual change, so you can safely ignore this if the specifics don't affect you.
 - For the standard **Pythr Journal Entry**:
