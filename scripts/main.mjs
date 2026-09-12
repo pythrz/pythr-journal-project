@@ -480,7 +480,6 @@ function onRenderJournalEntryPageProseMirrorSheet(app, html, context, options) {
 			EventContextObject("", "fa-check", ["1", "5"], "2", app), // Mark Event as Complete
 			EventContextObject("", "fa-xmark", ["1", "2"], "5", app), // Mark Event as Failed
 			EventContextObject("", "fa-arrow-rotate-left", ["1", "2", "5"], "0", app), // Reset Event
-			EventContextObject("", "fa-rotate", ["3", "4"], "0", app), // Convert to Event
 			EventContextObject("", "fa-eraser", ["0", "1", "2", "5"], "4", app), // Remove Event Status
 		]
 		
