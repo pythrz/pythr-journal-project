@@ -576,8 +576,7 @@ Hooks.on("renderPythrJournal", (app, html, context, options) => {
 			heading.classList.toggle('colactive');
 			var content = heading.nextElementSibling
 			var keys = app.document.getFlag(MODULE_ID, collapse_key) ?? {[id]: {[game.user.id]: true}}
-			if( !(id in keys) ) keys[id] = { [game.user.id]: true };
-			if( typeof keys[id] === "boolean" ) keys[id] = { [game.user.id]: true } // If using the old method of storing data, update it.
+			if( !(id in keys) || typeof keys[id] === "boolean" ) keys[id] = { [game.user.id]: true };
 			
 			if( heading.classList.contains('colactive') ) {
 				keys[id][game.user.id] = false
