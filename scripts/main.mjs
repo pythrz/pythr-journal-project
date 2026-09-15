@@ -1,7 +1,7 @@
-const {JournalEntryPageProseMirrorSheet} = foundry.applications.sheets.journal;
+const { JournalEntryPageProseMirrorSheet } = foundry.applications.sheets.journal;
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 const cssclasses = ["pythr", "dialog-lg"];
 const numeral = {1: 'i', 2: "ii", 3: "iii", 4: "iv", 5: "v"}
-const { DialogV2 } = foundry.applications.api;
 
 const MODULE_ID = "pythr-journal-project";
 const completed_key = "completedFlag";
@@ -17,7 +17,7 @@ const completed_options = [
 	{ value: 2, label: "Completed" },
 	{ value: 5, label: "Failed" }
 ]
-const status_colours = {0: "#ff4f4f", 1: "#ceb833", 2: "#33ce40", 5: "#3f3f40"}
+const status_colours = { 0: "#ff4f4f", 1: "#ceb833", 2: "#33ce40", 5: "#3f3f40" }
 let theatre_inserts_active = false;
 
 Hooks.on("init", () => {	
@@ -636,6 +636,7 @@ Hooks.on("renderJournalEntryCategoryConfig", (app, html, context) => {
 	}
 })
 
+// Add a button to change the name of a Journal Entry
 Hooks.on("getHeaderControlsPythrJournal", (app, menu) => {
 	if( foundry.utils.isSubclass(app.constructor, PythrJournal) && app.isEditable ) {
 		const header = app.element.querySelector(`.window-header`);
@@ -658,7 +659,6 @@ Hooks.on("getHeaderControlsPythrJournal", (app, menu) => {
 	}
 })
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 class NameEditorApplicationClass extends HandlebarsApplicationMixin(ApplicationV2) {
 	constructor(app) {
 		super()
