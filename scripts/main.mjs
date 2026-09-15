@@ -636,6 +636,70 @@ Hooks.on("renderJournalEntryCategoryConfig", (app, html, context) => {
 	}
 })
 
+Hooks.on("getHeaderControlsPythrJournal", (app, menu) => {
+	if( foundry.utils.isSubclass(app.constructor, PythrJournal) && app.isEditable ) {
+		const header = app.element.querySelector(`.window-header`);
+		if( header.querySelector(`button[data-action="changeName"]`) ) {
+			return
+		}
+		
+		const editNameButton = document.createElement('button');
+		editNameButton.classList = `header-control fa-solid fa-pencil icon`
+		editNameButton.dataset.action = "changeName"
+		editNameButton.dataset.tooltip = "Change Journal Name"
+		editNameButton.ariaLabel = "Change Journal Name"
+		
+		editNameButton.addEventListener('click', () => {
+			new NameEditorApplicationClass(app).render(true);
+		})
+		
+		const insertAfter = header.querySelector(`h1.window-title`);
+		insertAfter.after(editNameButton);
+	}
+})
+
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+class NameEditorApplicationClass extends HandlebarsApplicationMixin(ApplicationV2) {
+	constructor(app) {
+		super()
+		this.document = app.document;
+	}
+	
+	static DEFAULT_OPTIONS = {
+		tag: "form",
+		form: {
+			handler: NameEditorApplicationClass.handler,
+			closeOnSubmit: true
+		},
+		window: {
+			contentClasses: ["standard-form"],
+			icon: "fa-solid fa-pencil",
+			title: "Change Journal Name"
+		}
+	}
+	
+	static PARTS = {
+		description: { template: `modules/pythr-journal-project/templates/journal-name-change-input.hbs` },
+		footer: { template: `modules/pythr-journal-project/templates/journal-name-change-submit.hbs` }
+	}
+	
+	async _prepareContext() {
+		return {
+			name: this.document.name
+		}
+	}
+	
+	_onRender(context, options) {
+		const input = this.element.querySelector(`input`);
+		input.value = context.name
+	}
+	
+	static async handler(event, form, data) {
+		const input = this.element.querySelector(`input`);
+		this.document.update({ name: input.value });
+	}
+}
+
 Hooks.on("getJournalEntryPageContextOptions", (app, menu) => {
 	const start_context = EventContextObject("Begin Event", "fa-play", ["0"], "1", app);
 	const complete_event = EventContextObject("Mark Event as Complete", "fa-check", ["1", "5"], "2", app);
