@@ -711,6 +711,10 @@
 		color: white;
 	}
 	
+	:is(.pythr, .journal-entry) .journal-page-content :is(.quest, .advice, .notable) :is(h4, h5):not(:first-child) {
+		margin: 16px 0 8px;
+	}
+	
 	.pythr.journal-entry .journal-page-content .quest:is([data-button-type="encounter"]) h4 {
 		margin: 8px 0 8px;
 	}
